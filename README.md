@@ -1,30 +1,45 @@
 # quizverse
-Welcome to Quizverse - the first quiz app that makes learning as addictive as watching cat videos on YouTube!
 
-Are you ready for a journey through the universe of knowledge, where gravity doesn't exist but your IQ keeps rising? Prepare yourself for a quiz-tastic adventure where every question is a new galaxy of possibilities, and every answer is a potential black hole... but don't worry, we have a hint system!
+This template should help get you started developing with Vue 3 in Vite.
 
-From "What did dinosaurs eat for breakfast?" to "Why is pizza round but comes in a square box?" - in Quizverse, there are no stupid questions (okay, maybe we have a few 😉).
+## Recommended IDE Setup
 
-Become a Guardian of the Knowledge Galaxy:
-<ul>
-  <li>🚀 Explore infinite question categories</li>
-  <li>🌟 Collect stellar points and achievements</li>
-  <li>🛸 Challenge friends to intergalactic duels</li>
-  <li>🌍 Learn without the side effect of yawning</li>
-</ul>
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
 
+## Type Support for `.vue` Imports in TS
 
-WARNING: Using Quizverse may lead to sudden outbursts of wisdom and uncontrolled attacks of curiosity. In case of excessive knowledge, consult your local philosopher or Wikipedia.
+TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
 
-Join millions of intergalactic quizzers today!
+## Customize configuration
 
-# Main features
-<ul>
-  <li>🎯 Challenge yourself with infinite quizzes</li>
-  <li>🏆 Earn achievements and climb the leaderboards</li>
-  <li>🌍 Connect with quiz enthusiasts worldwide</li>
-  <li>⚡ Experience dynamic difficulty adaptation</li>
-  <li>🎮 Enjoy game-like learning mechanics</li>
-  <li>📊 Track your progress across knowledge domains</li>
-  <li>🎨 Beautiful, user-friendly interface</li>
-</ul>
+See [Vite Configuration Reference](https://vite.dev/config/).
+
+## Project Setup
+
+```sh
+npm install
+```
+
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
+```
+
+### Type-Check, Compile and Minify for Production
+
+```sh
+npm run build
+```
+
+### Run Unit Tests with [Vitest](https://vitest.dev/)
+
+```sh
+npm run test:unit
+```
+
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+npm run lint
+```
