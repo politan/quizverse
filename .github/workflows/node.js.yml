@@ -19,7 +19,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ${{ env.WEB_CLIENT_SRC}}
+        working-directory: ${{ env.WEB_CLIENT_SRC }}
 
     strategy:
       matrix:
@@ -33,7 +33,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: '$WEB_CLIENT_SRC/package-lock.json'
+        cache-dependency-path: ${{ env.WEB_CLIENT_SRC }} + '/package-lock.json'
     - run: npm ci
     - run: npm run build --if-present
     - run: npm run test
