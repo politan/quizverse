@@ -5,7 +5,7 @@ name: Quizverse Web Client CI
 
 on:
   push:
-    branches: [ "**" ]
+    branches: [ "main", "development" ]
   pull_request:
     branches: [ "main", "development" ]
 
