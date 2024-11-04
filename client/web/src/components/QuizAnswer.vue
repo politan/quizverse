@@ -18,6 +18,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Answer } from '@/types/answer';
+
 defineProps<{
   answer: Answer;
   isDisabled: boolean;
