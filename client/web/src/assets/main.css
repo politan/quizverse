@@ -1,0 +1,24 @@
+@import './base.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Opcjonalne dodatkowe style */
+@layer components {
+  .quiz-container {
+    @apply min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 text-white p-6;
+  }
+  
+  .quiz-card {
+    @apply bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-xl;
+  }
+  
+  .quiz-button {
+    @apply w-full p-4 rounded-xl text-left transition-all duration-300 flex items-center bg-white/10 hover:bg-white/20 disabled:cursor-not-allowed;
+  }
+  
+  .answer-label {
+    @apply w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-4;
+  }
+}
