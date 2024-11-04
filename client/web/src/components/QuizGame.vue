@@ -31,7 +31,8 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
           <button v-for="answer in currentQuestion.answers" :key="answer.id" class="quiz-button" :class="{
             'bg-green-500/50': hasAnswered && answer.isCorrect,
-            'bg-red-500/50': hasAnswered && !answer.isCorrect && selectedAnswer?.id === answer.id
+            'bg-red-500/50': hasAnswered && !answer.isCorrect && selectedAnswer?.id === answer.id,
+            'hover:bg-gray-300': !hasAnswered
           }" :disabled="hasAnswered" @click="handleAnswer(answer)">
             <span class="answer-label">{{ answer.label }}</span>
             <span class="flex-1">{{ answer.content }}</span>
@@ -39,15 +40,17 @@
         </div>
       </div>
 
-      <!-- Game Over Screen -->
-      <div v-else class="quiz-card text-center mt-8">
-        <h2 class="text-4xl font-bold mb-4">Game Over!</h2>
-        <p class="text-2xl mb-6">Final Score: {{ score }}</p>
-        <p class="text-xl mb-8">High Score: {{ highScore }}</p>
-        <button class="px-6 py-3 bg-white/20 hover:bg-white/30 rounded-xl transition-all duration-300"
-          @click="restartGame">
-          Play Again
-        </button>
+      <!-- Game Over Modal -->
+      <div v-if="isGameOver" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg text-center">
+          <h2 class="text-4xl font-bold mb-4 text-black">Game Over!</h2>
+          <p class="text-2xl mb-6 text-black">Final Score: {{ score }}</p>
+          <p class="text-xl mb-8 text-black">High Score: {{ highScore }}</p>
+          <button class="px-6 py-3 bg-blue-500 text-white rounded-xl transition-all duration-300"
+            @click="restartGame">
+            Play Again
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -254,3 +257,18 @@ const restartGame = () => {
   }
 };
 </script>
+
+<style scoped>
+.quiz-button {
+  transition: background-color 0.3s;
+}
+.quiz-button:hover {
+  background-color: rgba(209, 213, 219, 0.5);
+}
+.quiz-button.bg-green-500\/50 {
+  background-color: rgba(34, 197, 94, 0.5) !important;
+}
+.quiz-button.bg-red-500\/50 {
+  background-color: rgba(239, 68, 68, 0.5) !important;
+}
+</style>
