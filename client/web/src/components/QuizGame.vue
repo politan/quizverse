@@ -15,6 +15,7 @@
         <!-- Question -->
         <div class="text-center">
           <h2 class="text-3xl font-bold mb-2">Question</h2>
+          <LifelineButton :can-use-lifeline="canUseLifeline" @use-lifeline="handleLifelineUse" />
           <p class="text-xl">{{ currentQuestion.content }}</p>
           <div class="mt-2 inline-block px-3 py-1 bg-white/20 rounded-full text-sm">
             Points: {{ currentQuestion.points }}
@@ -29,7 +30,7 @@
 
         <!-- Answers -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-          <button v-for="answer in currentQuestion.answers" :key="answer.id" class="quiz-button" :class="{
+          <button v-for="answer in visibleAnswers" :key="answer.id" class="quiz-button" :class="{
             'bg-green-500/50': hasAnswered && answer.isCorrect,
             'bg-red-500/50': hasAnswered && !answer.isCorrect && selectedAnswer?.id === answer.id,
             'hover:bg-gray-300': !hasAnswered
@@ -46,8 +47,7 @@
           <h2 class="text-4xl font-bold mb-4 text-black">Game Over!</h2>
           <p class="text-2xl mb-6 text-black">Final Score: {{ score }}</p>
           <p class="text-xl mb-8 text-black">High Score: {{ highScore }}</p>
-          <button class="px-6 py-3 bg-blue-500 text-white rounded-xl transition-all duration-300"
-            @click="restartGame">
+          <button class="px-6 py-3 bg-blue-500 text-white rounded-xl transition-all duration-300" @click="restartGame">
             Play Again
           </button>
         </div>
@@ -59,7 +59,9 @@
 <script setup lang="ts">
 import type { Answer } from '@/types/answer';
 import type { Question } from '@/types/question';
-import { ref } from 'vue';
+import LifelineButton from '@/components/LifelineButton.vue';
+import { useLifeline } from '@/composables/uselifeline';
+import { computed, ref } from 'vue';
 
 const score = ref(0);
 const highScore = ref(0);
@@ -67,6 +69,8 @@ const hasAnswered = ref(false);
 const isGameOver = ref(false);
 const selectedAnswer = ref<Answer | null>(null);
 const alreadyAnsweredQuestions = ref<number[]>([]);
+
+const { canUseLifeline, useFiftyFifty, resetLifeline } = useLifeline();
 
 const questions = ref<Question[]>([
   {
@@ -201,6 +205,20 @@ const questions = ref<Question[]>([
   }
 ]);
 
+const visibleAnswers = computed(() =>
+  currentQuestion.value.answers.filter(answer => !answer.isHidden)
+);
+
+const handleLifelineUse = () => {
+  const correctAnswer = currentQuestion.value.answers.find(a => a.isCorrect);
+  if (!correctAnswer) return;
+
+  currentQuestion.value.answers = useFiftyFifty({
+    answers: currentQuestion.value.answers,
+    correctAnswerId: correctAnswer.id,
+  });
+};
+
 const currentQuestion = ref<Question>(questions.value[Math.floor(Math.random() * questions.value.length)]);
 
 const getNextQuestion = () => {
@@ -249,9 +267,10 @@ const restartGame = () => {
   hasAnswered.value = false;
   selectedAnswer.value = null;
   alreadyAnsweredQuestions.value = [];
+  resetLifeline();
   // Reset question logic here
   const nextQuestion = getNextQuestion();
-  
+
   if (nextQuestion) {
     currentQuestion.value = nextQuestion;
   }
@@ -262,12 +281,15 @@ const restartGame = () => {
 .quiz-button {
   transition: background-color 0.3s;
 }
+
 .quiz-button:hover {
   background-color: rgba(209, 213, 219, 0.5);
 }
+
 .quiz-button.bg-green-500\/50 {
   background-color: rgba(34, 197, 94, 0.5) !important;
 }
+
 .quiz-button.bg-red-500\/50 {
   background-color: rgba(239, 68, 68, 0.5) !important;
 }
