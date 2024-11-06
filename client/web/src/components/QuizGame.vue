@@ -60,7 +60,7 @@
 import type { Answer } from '@/types/answer';
 import type { Question } from '@/types/question';
 import LifelineButton from '@/components/LifelineButton.vue';
-import { useLifeline } from '@/composables/uselifeline';
+import { useLifeline } from '../composables/uselifeline';
 import { computed, ref } from 'vue';
 
 const score = ref(0);
@@ -70,7 +70,7 @@ const isGameOver = ref(false);
 const selectedAnswer = ref<Answer | null>(null);
 const alreadyAnsweredQuestions = ref<number[]>([]);
 
-const { canUseLifeline, useFiftyFifty, resetLifeline } = useLifeline();
+const { canUseLifeline, useFiftyFifty, resetLifeline, lifeline } = useLifeline();
 
 const questions = ref<Question[]>([
   {
@@ -80,10 +80,10 @@ const questions = ref<Question[]>([
     "points": 10,
     "category": "Nauka",
     "answers": [
-      { "id": 1, "label": "A", "content": "Jowisz", "isCorrect": true },
-      { "id": 2, "label": "B", "content": "Saturn", "isCorrect": false },
-      { "id": 3, "label": "C", "content": "Uran", "isCorrect": false },
-      { "id": 4, "label": "D", "content": "Neptun", "isCorrect": false }
+      { "id": 1, "label": "A", "content": "Jowisz", "isCorrect": true, "isHidden": false },
+      { "id": 2, "label": "B", "content": "Saturn", "isCorrect": false, "isHidden": false },
+      { "id": 3, "label": "C", "content": "Uran", "isCorrect": false, "isHidden": false },
+      { "id": 4, "label": "D", "content": "Neptun", "isCorrect": false, "isHidden": false }
     ]
   },
   {
@@ -93,10 +93,10 @@ const questions = ref<Question[]>([
     "points": 5,
     "category": "Literatura",
     "answers": [
-      { "id": 5, "label": "A", "content": "Juliusz Słowacki", "isCorrect": false },
-      { "id": 6, "label": "B", "content": "Adam Mickiewicz", "isCorrect": true },
-      { "id": 7, "label": "C", "content": "Henryk Sienkiewicz", "isCorrect": false },
-      { "id": 8, "label": "D", "content": "Cyprian Kamil Norwid", "isCorrect": false }
+      { "id": 5, "label": "A", "content": "Juliusz Słowacki", "isCorrect": false, "isHidden": false },
+      { "id": 6, "label": "B", "content": "Adam Mickiewicz", "isCorrect": true, "isHidden": false },
+      { "id": 7, "label": "C", "content": "Henryk Sienkiewicz", "isCorrect": false, "isHidden": false },
+      { "id": 8, "label": "D", "content": "Cyprian Kamil Norwid", "isCorrect": false, "isHidden": false }
     ]
   },
   {
@@ -106,10 +106,10 @@ const questions = ref<Question[]>([
     "points": 5,
     "category": "Geografia",
     "answers": [
-      { "id": 9, "label": "A", "content": "Wisła", "isCorrect": true },
-      { "id": 10, "label": "B", "content": "Odra", "isCorrect": false },
-      { "id": 11, "label": "C", "content": "Bug", "isCorrect": false },
-      { "id": 12, "label": "D", "content": "Warta", "isCorrect": false }
+      { "id": 9, "label": "A", "content": "Wisła", "isCorrect": true, "isHidden": false },
+      { "id": 10, "label": "B", "content": "Odra", "isCorrect": false, "isHidden": false },
+      { "id": 11, "label": "C", "content": "Bug", "isCorrect": false, "isHidden": false },
+      { "id": 12, "label": "D", "content": "Warta", "isCorrect": false, "isHidden": false }
     ]
   },
   {
@@ -119,10 +119,10 @@ const questions = ref<Question[]>([
     "points": 10,
     "category": "Matematyka",
     "answers": [
-      { "id": 13, "label": "A", "content": "10", "isCorrect": false },
-      { "id": 14, "label": "B", "content": "11", "isCorrect": false },
-      { "id": 15, "label": "C", "content": "12", "isCorrect": true },
-      { "id": 16, "label": "D", "content": "13", "isCorrect": false }
+      { "id": 13, "label": "A", "content": "10", "isCorrect": false, "isHidden": false },
+      { "id": 14, "label": "B", "content": "11", "isCorrect": false, "isHidden": false },
+      { "id": 15, "label": "C", "content": "12", "isCorrect": true, "isHidden": false },
+      { "id": 16, "label": "D", "content": "13", "isCorrect": false, "isHidden": false }
     ]
   },
   {
@@ -132,10 +132,10 @@ const questions = ref<Question[]>([
     "points": 10,
     "category": "Historia",
     "answers": [
-      { "id": 17, "label": "A", "content": "2002", "isCorrect": false },
-      { "id": 18, "label": "B", "content": "2003", "isCorrect": false },
-      { "id": 19, "label": "C", "content": "2004", "isCorrect": true },
-      { "id": 20, "label": "D", "content": "2005", "isCorrect": false }
+      { "id": 17, "label": "A", "content": "2002", "isCorrect": false, "isHidden": false },
+      { "id": 18, "label": "B", "content": "2003", "isCorrect": false, "isHidden": false },
+      { "id": 19, "label": "C", "content": "2004", "isCorrect": true, "isHidden": false },
+      { "id": 20, "label": "D", "content": "2005", "isCorrect": false, "isHidden": false }
     ]
   },
   {
@@ -145,10 +145,10 @@ const questions = ref<Question[]>([
     "points": 10,
     "category": "Zdrowie",
     "answers": [
-      { "id": 21, "label": "A", "content": "Witamina A", "isCorrect": false },
-      { "id": 22, "label": "B", "content": "Witamina C", "isCorrect": false },
-      { "id": 23, "label": "C", "content": "Witamina D", "isCorrect": true },
-      { "id": 24, "label": "D", "content": "Witamina E", "isCorrect": false }
+      { "id": 21, "label": "A", "content": "Witamina A", "isCorrect": false, "isHidden": false },
+      { "id": 22, "label": "B", "content": "Witamina C", "isCorrect": false, "isHidden": false },
+      { "id": 23, "label": "C", "content": "Witamina D", "isCorrect": true, "isHidden": false },
+      { "id": 24, "label": "D", "content": "Witamina E", "isCorrect": false, "isHidden": false }
     ]
   },
   {
@@ -158,10 +158,10 @@ const questions = ref<Question[]>([
     "points": 15,
     "category": "Sztuka",
     "answers": [
-      { "id": 25, "label": "A", "content": "Pablo Picasso", "isCorrect": false },
-      { "id": 26, "label": "B", "content": "Vincent van Gogh", "isCorrect": true },
-      { "id": 27, "label": "C", "content": "Claude Monet", "isCorrect": false },
-      { "id": 28, "label": "D", "content": "Leonardo da Vinci", "isCorrect": false }
+      { "id": 25, "label": "A", "content": "Pablo Picasso", "isCorrect": false, "isHidden": false },
+      { "id": 26, "label": "B", "content": "Vincent van Gogh", "isCorrect": true, "isHidden": false },
+      { "id": 27, "label": "C", "content": "Claude Monet", "isCorrect": false, "isHidden": false },
+      { "id": 28, "label": "D", "content": "Leonardo da Vinci", "isCorrect": false, "isHidden": false }
     ]
   },
   {
@@ -171,10 +171,10 @@ const questions = ref<Question[]>([
     "points": 10,
     "category": "Geografia",
     "answers": [
-      { "id": 29, "label": "A", "content": "Śniardwy", "isCorrect": true },
-      { "id": 30, "label": "B", "content": "Mamry", "isCorrect": false },
-      { "id": 31, "label": "C", "content": "Jeziorak", "isCorrect": false },
-      { "id": 32, "label": "D", "content": "Niegocin", "isCorrect": false }
+      { "id": 29, "label": "A", "content": "Śniardwy", "isCorrect": true, "isHidden": false },
+      { "id": 30, "label": "B", "content": "Mamry", "isCorrect": false, "isHidden": false },
+      { "id": 31, "label": "C", "content": "Jeziorak", "isCorrect": false, "isHidden": false },
+      { "id": 32, "label": "D", "content": "Niegocin", "isCorrect": false, "isHidden": false }
     ]
   },
   {
@@ -184,10 +184,10 @@ const questions = ref<Question[]>([
     "points": 10,
     "category": "Chemia",
     "answers": [
-      { "id": 33, "label": "A", "content": "Srebro", "isCorrect": false },
-      { "id": 34, "label": "B", "content": "Miedź", "isCorrect": false },
-      { "id": 35, "label": "C", "content": "Złoto", "isCorrect": true },
-      { "id": 36, "label": "D", "content": "Platyna", "isCorrect": false }
+      { "id": 33, "label": "A", "content": "Srebro", "isCorrect": false, "isHidden": false },
+      { "id": 34, "label": "B", "content": "Miedź", "isCorrect": false, "isHidden": false },
+      { "id": 35, "label": "C", "content": "Złoto", "isCorrect": true, "isHidden": false },
+      { "id": 36, "label": "D", "content": "Platyna", "isCorrect": false, "isHidden": false }
     ]
   },
   {
@@ -197,10 +197,10 @@ const questions = ref<Question[]>([
     "points": 5,
     "category": "Nauka",
     "answers": [
-      { "id": 37, "label": "A", "content": "Nikola Tesla", "isCorrect": false },
-      { "id": 38, "label": "B", "content": "Thomas Edison", "isCorrect": true },
-      { "id": 39, "label": "C", "content": "Albert Einstein", "isCorrect": false },
-      { "id": 40, "label": "D", "content": "Alexander Graham Bell", "isCorrect": false }
+      { "id": 37, "label": "A", "content": "Nikola Tesla", "isCorrect": false, "isHidden": false },
+      { "id": 38, "label": "B", "content": "Thomas Edison", "isCorrect": true, "isHidden": false },
+      { "id": 39, "label": "C", "content": "Albert Einstein", "isCorrect": false, "isHidden": false },
+      { "id": 40, "label": "D", "content": "Alexander Graham Bell", "isCorrect": false, "isHidden": false }
     ]
   }
 ]);

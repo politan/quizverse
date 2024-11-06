@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
-import QuizQuestion from '@components/QuizQuestion.vue'
+import QuizQuestion from '@/components/QuizQuestion.vue'
 
 describe('QuizQuestion', () => {
   const mockQuestion = {

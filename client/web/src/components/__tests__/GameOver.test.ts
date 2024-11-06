@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
-import GameOver from '@components/GameOver.vue'
+import GameOver from '@/components/GameOver.vue'
 
 describe('GameOver', () => {
   it('displays final score and high score', () => {

@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitest/config';
 import vue from '@vitejs/plugin-vue';
-import { resolve } from 'node:path';
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
   test: {
@@ -10,10 +10,9 @@ export default defineConfig({
     environment: 'jsdom'
   },
   resolve: {
-    alias: [
-      { find: '@components', replacement: resolve(__dirname, 'src/components') },
-      { find: '@stores', replacement: resolve(__dirname, 'src/stores') }
-    ]
+    alias: {
+      '@': '/src'
+    }
   },
-  plugins: [vue()]
+  plugins: [vue(), tsconfigPaths()]
 });
