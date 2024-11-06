@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
-import GameHeader from '@components/GameHeader.vue'
+import GameHeader from '@/components/GameHeader.vue'
 
 describe('GameHeader', () => {
   it('displays correct score and high score', () => {

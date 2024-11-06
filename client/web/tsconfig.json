@@ -14,9 +14,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@stores/*": ["src/stores/*"]
+      // "@/*": ["src/*"],
+      // "@components/*": ["src/components/*"],
+      // "@stores/*": ["src/stores/*"]
     }
   }
 }
