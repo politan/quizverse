@@ -229,7 +229,15 @@ const getNextQuestion = () => {
     isGameOver.value = true;
     return null;
   }
-  return remainingQuestions[Math.floor(Math.random() * remainingQuestions.length)];
+
+  const question =  remainingQuestions[Math.floor(Math.random() * remainingQuestions.length)];
+
+  // In case when in previous game 50/50 lifeline was used and some answers were hidden
+  if (question.answers.some(answer => answer.isHidden)) {
+    question.answers.forEach(answer => answer.isHidden = false);
+  }
+
+  return question;
 };
 
 const handleAnswer = (answer: Answer) => {
