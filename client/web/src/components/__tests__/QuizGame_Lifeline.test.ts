@@ -56,9 +56,9 @@ describe("QuizGame.vue", () => {
 
     // Check that no answers are hidden
     const hiddenAnswers = wrapper.vm.currentQuestion.answers.filter(
-      (answer) => answer.isHidden
+      (answer) => answer.isHidden === false
     );
-    expect(hiddenAnswers.length).toBe(0);
+    expect(hiddenAnswers.length).toBe(4);
 
     // Check that canUseLifeline is reset
     expect(wrapper.vm.canUseLifeline).toBe(true);
