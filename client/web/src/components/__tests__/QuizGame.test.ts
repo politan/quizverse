@@ -1,4 +1,4 @@
-import { mount } from "@vue/test-utils";
+import { mount, VueWrapper } from "@vue/test-utils";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import QuizGame from '@/components/QuizGame.vue'
 import { mockQuestions } from "./__mocks__/questions.mock";
@@ -10,7 +10,8 @@ vi.mock("@/services/questionService", () => ({
 }));
 
 describe("QuizGame", () => {
-  let wrapper: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let wrapper: VueWrapper<any>;
 
   beforeEach(() => {
     // Reset all mocks before each test
@@ -24,8 +25,6 @@ describe("QuizGame", () => {
   it("renders initial game state with first mock question", () => {
     expect(wrapper.find("h2").text()).toBe("Question");
     expect(wrapper.find(".text-xl").text()).toBe("Score: 0");
-
-    const x = wrapper.findAll('button');
 
     expect(wrapper.findAll("button").length).toBe(5);
   });
@@ -154,7 +153,6 @@ describe("QuizGame", () => {
 // src/services/questionService.ts
 import { ref } from "vue";
 import type { Question } from "@/types/question";
-import { wrap } from "module";
 
 export const questionBank = ref<Question[]>([]);
 
