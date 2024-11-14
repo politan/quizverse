@@ -70,6 +70,7 @@ const isGameOver = ref(false);
 const selectedAnswer = ref<Answer | null>(null);
 const alreadyAnsweredQuestions = ref<number[]>([]);
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { canUseLifeline, useFiftyFifty, resetLifeline, lifeline } = useLifeline();
 
 const questions = ref<Question[]>([
